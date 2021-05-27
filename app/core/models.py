@@ -1,11 +1,16 @@
+from typing import Optional, List, Any, TYPE_CHECKING
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 
+if TYPE_CHECKING:
+    from django.contrib.auth.models import User
+
 
 class UserManager(BaseUserManager):
 
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email: str, password: Optional[str] = None, **extra_fields: List[Any]) -> "User":
         """Creates and saves a new User"""
         if not email:
             raise ValueError('Users must have an email address')
